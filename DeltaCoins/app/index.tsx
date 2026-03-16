@@ -3,7 +3,7 @@ import ErrorView from "@/components/errorView";
 import LoadingView from "@/components/loadingView";
 import { useGetInfiniteCoins } from "@/hooks/useGetInfiniteCoins";
 import { useNavigation } from "expo-router";
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { FlatList, Text } from "react-native";
 
 export default function Index() {
