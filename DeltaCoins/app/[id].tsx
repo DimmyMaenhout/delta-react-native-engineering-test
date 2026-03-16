@@ -2,6 +2,7 @@ import { fetchCoinDetails } from "@/api/delta/coins";
 import ErrorView from "@/components/errorView";
 import LoadingView from "@/components/loadingView";
 import RowComponent from "@/components/rowComponent";
+import { formatDate } from "@/util/dateFormatter";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { useQuery } from "@tanstack/react-query";
@@ -9,9 +10,9 @@ import { useLocalSearchParams, Stack, useNavigation } from "expo-router";
 import { useLayoutEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Pressable,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -43,14 +44,9 @@ export default function CoinDetailsScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Pressable
-          onPress={onRetry}
-          style={(pressed) => {
-            return pressed ? styles.pressed : null;
-          }}
-        >
+        <TouchableOpacity onPress={onRetry}>
           <Ionicons name="refresh" size={24} color="black" />
-        </Pressable>
+        </TouchableOpacity>
       ),
       title: title,
     });
@@ -90,7 +86,7 @@ export default function CoinDetailsScreen() {
         <View>
           <View style={styles.timeStamp}>
             <Text>Last updated</Text>
-            <Text>{lastUpdatedDate.toDateString()} {lastUpdatedDate.toTimeString()}</Text>
+            <Text>{formatDate(lastUpdatedDate)}</Text>
           </View>
 
           <RowComponent title={`${name}`} value={`$${priceInUSD}`} />
@@ -120,10 +116,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 16,
   },
-  pressed: {
-    opacity: 0.5,
-  },
   timeStamp: {
     alignItems: "center",
+    marginBottom: 16,
   },
 });
