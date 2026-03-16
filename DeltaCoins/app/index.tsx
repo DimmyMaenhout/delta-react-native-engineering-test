@@ -8,6 +8,7 @@ export default function Index() {
     isPending,
     error,
     fetchNextPage,
+    refetch,
     isFetchingNextPage,
     hasNextPage,
   } = useGetInfiniteCoins();
@@ -15,7 +16,7 @@ export default function Index() {
   console.log("data: ", data);
 
   function onRetry() {
-    // TODO: implement!!!
+    refetch();
   }
 
   if (isPending) {
@@ -30,7 +31,7 @@ export default function Index() {
     return (
       <View style={styles.root}>
         <Text style={styles.message}>
-          Something went wrong, please try again later
+          Something went wrong while fetching coins, please try again later.
         </Text>
 
         <Pressable
