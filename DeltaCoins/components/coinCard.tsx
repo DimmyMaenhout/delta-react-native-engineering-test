@@ -9,7 +9,7 @@ export default function CoinCard({ name, priceInUSD, id }: CoinCardProps) {
   const router = useRouter();
 
   function handleOnPress() {
-    // TODO: implement!!!
+    router.push(`/${id}`);
   }
 
   return (
