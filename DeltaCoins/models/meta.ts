@@ -1,4 +1,4 @@
 export interface Meta {
   success: boolean;
-  totalCoinCount: number;
+  totalCoinCount?: number;
 }
