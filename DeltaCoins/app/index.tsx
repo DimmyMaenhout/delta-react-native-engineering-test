@@ -1,8 +1,13 @@
 import CoinCard from "@/components/coinCard";
+import ErrorView from "@/components/errorView";
 import { useGetInfiniteCoins } from "@/hooks/useGetInfiniteCoins";
+import { useNavigation } from "expo-router";
+import { useEffect } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function Index() {
+  const navigation = useNavigation();
+
   const {
     data,
     isPending,
@@ -14,6 +19,12 @@ export default function Index() {
   } = useGetInfiniteCoins();
 
   console.log("data: ", data);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: "Coins",
+    });
+  }, []);
 
   function onRetry() {
     refetch();
@@ -29,21 +40,10 @@ export default function Index() {
 
   if (error) {
     return (
-      <View style={styles.root}>
-        <Text style={styles.message}>
-          Something went wrong while fetching coins, please try again later.
-        </Text>
-
-        <Pressable
-          style={({ pressed }) => [
-            styles.button,
-            pressed && styles.buttonPressed,
-          ]}
-          onPress={onRetry}
-        >
-          <Text style={styles.buttonText}>Try Again</Text>
-        </Pressable>
-      </View>
+      <ErrorView
+        message="Something went wrong while fetching coins, please try again later."
+        pressed={onRetry}
+      />
     );
   }
 
