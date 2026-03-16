@@ -1,15 +1,34 @@
-import { Text, View } from "react-native";
+import CoinCard from "@/components/coinCard";
+import { useGetInfiniteCoins } from "@/hooks/useGetInfiniteCoins";
+import { FlatList, Text } from "react-native";
 
 export default function Index() {
+  const {
+    data,
+    isPending,
+    error,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useGetInfiniteCoins();
+
+  console.log("data: ", data);
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+    <FlatList
+      data={data}
+      renderItem={({ item }) => <CoinCard {...item} />}
+      keyExtractor={(item) => item.id}
+      showsVerticalScrollIndicator={false}
+      onEndReached={() => {
+        hasNextPage && !isFetchingNextPage && fetchNextPage();
       }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={() => {
+        if (isFetchingNextPage) {
+          return <Text>Fetching more coins...</Text>;
+        }
+      }}
+    />
   );
 }
