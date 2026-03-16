@@ -11,7 +11,7 @@ export const useGetInfiniteCoins = (pageSize = 25) => {
     initialPageParam: 1,
 
     getNextPageParam: (coinsResponse, allPages) => {
-      const totalCoins = coinsResponse.meta.totalCoinCount;
+      const totalCoins = coinsResponse.meta.totalCoinCount ?? 0;
       const fetchedSoFar = allPages.length * pageSize;
 
       if (fetchedSoFar >= totalCoins) return undefined;
