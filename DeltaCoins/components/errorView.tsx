@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 interface ErrorViewProps {
   message: string;
@@ -8,11 +8,8 @@ interface ErrorViewProps {
 
 export default function ErrorView({ message, pressed }: ErrorViewProps) {
   return (
-    <>
-      <Text style={styles.message}>
-        Something went wrong while fetching the coin details, please try again
-        later.
-      </Text>
+    <View style={styles.root}>
+      <Text style={styles.message}>{message}</Text>
 
       <Pressable
         style={({ pressed }) => [
@@ -23,11 +20,16 @@ export default function ErrorView({ message, pressed }: ErrorViewProps) {
       >
         <Text style={styles.buttonText}>Try Again</Text>
       </Pressable>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   message: {
     fontSize: 16,
     textAlign: "center",
