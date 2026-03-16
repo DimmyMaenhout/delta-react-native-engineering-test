@@ -14,11 +14,13 @@ export default function CoinCard({ name, priceInUSD, id }: CoinCardProps) {
 
   return (
     <Pressable
+      testID="pressable"
       style={({ pressed }) => [pressed && styles.pressed]}
       onPress={handleOnPress}
     >
       <View style={styles.container}>
         <Image
+          testID="coin-image"
           style={styles.image}
           source={{ uri: `https://delta.app/images/${id}/icon-64.png` }}
         />
