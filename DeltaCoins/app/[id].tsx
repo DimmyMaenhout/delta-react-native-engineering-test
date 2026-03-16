@@ -90,7 +90,7 @@ export default function CoinDetailsScreen() {
         <View>
           <View style={styles.timeStamp}>
             <Text>Last updated</Text>
-            <Text>{lastUpdatedDate.toDateString()}</Text>
+            <Text>{lastUpdatedDate.toDateString()} {lastUpdatedDate.toTimeString()}</Text>
           </View>
 
           <RowComponent title={`${name}`} value={`$${priceInUSD}`} />
