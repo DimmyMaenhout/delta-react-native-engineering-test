@@ -3,18 +3,13 @@ import ErrorView from "@/components/errorView";
 import LoadingView from "@/components/loadingView";
 import RowComponent from "@/components/rowComponent";
 import { formatDate } from "@/util/dateFormatter";
+
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams, Stack, useNavigation } from "expo-router";
-import { useLayoutEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useLayoutEffect } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function CoinDetailsScreen() {
   const navigation = useNavigation();
@@ -50,14 +45,10 @@ export default function CoinDetailsScreen() {
       ),
       title: title,
     });
-  }, []);
+  }, [data]);
 
   if (isPending && isFetching && isLoading && data) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator />
-      </View>
-    );
+    return <LoadingView />;
   }
 
   if (error) {
@@ -70,11 +61,7 @@ export default function CoinDetailsScreen() {
   }
 
   if (!data?.data) {
-    return (
-      <View style={styles.root}>
-        <LoadingView message="Fetching coin details..." />
-      </View>
-    );
+    return <LoadingView />;
   }
 
   const { name, priceInUSD, availableSupply, volume24hInUSD, marketCapInUSD } =
